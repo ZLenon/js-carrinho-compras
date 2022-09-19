@@ -52,19 +52,12 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
 async function MandaProdutosPage() {
   const data = await fetchProducts('computador');
   const items = document.querySelector('.items');
-  data.results.forEach(element => {
+  data.results.forEach((param) => {
     items.appendChild(createProductItemElement(
-      element,
+      param,
     ));
   });
 }
- /*  const items = document.querySelector('.items');
-  data.forEach(x => {
-    items.appendChild(createProductItemElement({
-      id: x.id,
-      title: x.title,
-      thumbnail: x.thumbnail,
-  })   */
 
 /**
  * Função que recupera o ID do produto passado como parâmetro.
