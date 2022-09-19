@@ -41,16 +41,30 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   const section = document.createElement('section');
   section.className = 'item';
 
-  const items = document.getElementsByClassName('items');
-  items.appendChild(section);
-
   section.appendChild(createCustomElement('span', 'item_id', id));
   section.appendChild(createCustomElement('span', 'item__title', title));
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-  
+
   return section;
 };
+
+async function MandaProdutosPage() {
+  const data = await fetchProducts('computador');
+  const items = document.querySelector('.items');
+  data.results.forEach(element => {
+    items.appendChild(createProductItemElement(
+      element,
+    ));
+  });
+}
+ /*  const items = document.querySelector('.items');
+  data.forEach(x => {
+    items.appendChild(createProductItemElement({
+      id: x.id,
+      title: x.title,
+      thumbnail: x.thumbnail,
+  })   */
 
 /**
  * Função que recupera o ID do produto passado como parâmetro.
@@ -75,4 +89,6 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-window.onload = () => { };
+window.onload = async () => {
+  await MandaProdutosPage();
+};
