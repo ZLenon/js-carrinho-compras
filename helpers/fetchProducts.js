@@ -14,3 +14,9 @@ if (typeof module !== 'undefined') {
     fetchProducts,
   };
 }
+
+/* fetchProducts('computador').then(data=> console.log(
+  data.results[0].title,
+  data.results[0].thumbnail,
+  data.results[0].price,
+)); */
