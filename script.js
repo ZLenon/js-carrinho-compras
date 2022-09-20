@@ -49,7 +49,8 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   return section;
 };
 
-async function MandaProdutosPage() {
+// Requisito 2
+async function sendProductsPage() {
   const data = await fetchProducts('computador');
   const items = document.querySelector('.items');
   data.results.forEach((param) => {
@@ -83,5 +84,5 @@ const createCartItemElement = ({ id, title, price }) => {
 };
 
 window.onload = async () => {
-  await MandaProdutosPage();
+  await sendProductsPage();
 };
