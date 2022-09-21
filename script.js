@@ -49,17 +49,6 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   return section;
 };
 
-// Requisito 2
-async function sendProductsPage() {
-  const data = await fetchProducts('computador');
-  const items = document.querySelector('.items');
-  data.results.forEach((param) => {
-    items.appendChild(createProductItemElement(
-      param,
-    ));
-  });
-}
-
 /**
  * Função que recupera o ID do produto passado como parâmetro.
  * @param {Element} product - Elemento do produto.
@@ -75,6 +64,8 @@ const getIdFromProductItem = (product) => product.querySelector('span.item_id').
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
  */
+ const cartItemClickListener = (element)=> element.target.remove();
+
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
@@ -83,6 +74,34 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
+// Requisito 2 Todos produtos na tela
+async function sendProductsPage() {
+  const data = await fetchProducts('computador');
+  const items = document.querySelector('.items');
+  data.results.forEach((param) => {
+    items.appendChild(createProductItemElement({
+      id: param.id,
+      title: param.title,
+      thumbnail: param.thumbnail,
+    }));
+  });
+}
+
+// Requisito 4 Botao de add no carrinho
+async function addProductCart() {
+  const botaoDeAdicionar = document.querySelectorAll('.item__add');
+  const carrinho = document.querySelector('.cart__items');
+
+  botaoDeAdicionar.forEach((clicou) => {
+    clicou.addEventListener('click', async (param) => {
+      const id = param.target.parentNode.firstChild.innerText;
+      const data = await fetchItem(id);
+      carrinho.appendChild(createCartItemElement(data));
+    });
+  });
+}
+
 window.onload = async () => {
   await sendProductsPage();
+  await addProductCart();
 };
