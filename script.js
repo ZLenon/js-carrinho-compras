@@ -64,7 +64,7 @@ const getIdFromProductItem = (product) => product.querySelector('span.item_id').
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
  */
- const cartItemClickListener = (element)=> element.target.remove();
+ const cartItemClickListener = (element) => element.target.remove();
 
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
