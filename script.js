@@ -64,7 +64,7 @@ const getIdFromProductItem = (product) => product.querySelector('span.item_id').
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
  */
- const cartItemClickListener = (element) => element.target.remove();
+const cartItemClickListener = (element) => element.target.remove();
 
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
@@ -78,30 +78,53 @@ const createCartItemElement = ({ id, title, price }) => {
 async function sendProductsPage() {
   const data = await fetchProducts('computador');
   const items = document.querySelector('.items');
-  data.results.forEach((param) => {
+  data.results.forEach((infoProduct) => {
     items.appendChild(createProductItemElement({
-      id: param.id,
-      title: param.title,
-      thumbnail: param.thumbnail,
+      id: infoProduct.id,
+      title: infoProduct.title,
+      thumbnail: infoProduct.thumbnail,
     }));
   });
 }
 
+const carrinho = document.querySelector('.cart__items');
 // Requisito 4 Botao de add no carrinho
 async function addProductCart() {
-  const botaoDeAdicionar = document.querySelectorAll('.item__add');
-  const carrinho = document.querySelector('.cart__items');
+  const todosBotoes = document.querySelectorAll('.item__add');
 
-  botaoDeAdicionar.forEach((clicou) => {
-    clicou.addEventListener('click', async (param) => {
-      const id = param.target.parentNode.firstChild.innerText;
-      const data = await fetchItem(id);
+  todosBotoes.forEach((botoes) => {
+    botoes.addEventListener('click', async (param) => {
+      // const id = param.target.parentNode.firstChild.innerText;
+      const botao = param.target;
+      const nodePai = botao.parentNode;
+      const filhoUm = nodePai.firstChild;
+      const texto = filhoUm.innerText;
+      const data = await fetchItem(texto);
+      // console.log(texto);
       carrinho.appendChild(createCartItemElement(data));
+
+      // console.log(carrinho.innerHTML);
+      saveCartItems(carrinho.innerHTML);
     });
   });
 }
+// Requisito 8 salva no carrinho depois de carregar
+function savecar() {
+  const car = getSavedCartItems();
+  carrinho.innerHTML = car;
+  // console.log(car);
+}
+
+function deletCar(params) {
+  const del = document.querySelector('.empty-cart');
+}
+
+// getSavedCartItems();
+// SavedCartItems();
 
 window.onload = async () => {
   await sendProductsPage();
   await addProductCart();
+  savecar();
+  deletCar();
 };
