@@ -65,7 +65,7 @@ const getIdFromProductItem = (product) => product.querySelector('span.item_id').
  * @returns {Element} Elemento de um item do carrinho.
  */
 
-// Remove o item ao clicar
+// Requisito 5 Remove o item ao clicar
 const cartItemClickListener = (element) => {
   element.target.remove();
   saveCartItems(carrinho.innerHTML);
