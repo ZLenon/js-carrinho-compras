@@ -1,6 +1,6 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
-
+const carrinho = document.querySelector('.cart__items');
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
 /**
@@ -64,7 +64,19 @@ const getIdFromProductItem = (product) => product.querySelector('span.item_id').
  * @param {string} product.price - Preço do produto.
  * @returns {Element} Elemento de um item do carrinho.
  */
-const cartItemClickListener = (element) => element.target.remove();
+
+// Remove o item ao clicar
+const cartItemClickListener = (element) => {
+  element.target.remove();
+  saveCartItems(carrinho.innerHTML);
+};
+
+// Requisito 8 mostra items do carrinho depois de carregar
+function savecar() {
+  const local = getSavedCartItems(); // localStorage.getItem('cartItems')
+  carrinho.innerHTML = local;
+  // console.log(car);
+}
 
 const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
@@ -87,12 +99,11 @@ async function sendProductsPage() {
   });
 }
 
-const carrinho = document.querySelector('.cart__items');
-// Requisito 4 Botao de add no carrinho
+// Requisito 4 Botão de add no carrinho
 async function addProductCart() {
-  const todosBotoes = document.querySelectorAll('.item__add');
+  const allButtons = document.querySelectorAll('.item__add');
 
-  todosBotoes.forEach((botoes) => {
+  allButtons.forEach((botoes) => {
     botoes.addEventListener('click', async (param) => {
       // const id = param.target.parentNode.firstChild.innerText;
       const botao = param.target;
@@ -108,15 +119,14 @@ async function addProductCart() {
     });
   });
 }
-// Requisito 8 salva no carrinho depois de carregar
-function savecar() {
-  const car = getSavedCartItems();
-  carrinho.innerHTML = car;
-  // console.log(car);
-}
 
-function deletCar(params) {
+// Requisito 10 limpa o carrinho
+function deletCar(param) {
   const del = document.querySelector('.empty-cart');
+  del.addEventListener('click', () => {
+    localStorage.removeItem('cartItems');
+    carrinho.innerHTML = '';
+  });
 }
 
 // getSavedCartItems();
