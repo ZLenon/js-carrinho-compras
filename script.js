@@ -71,7 +71,7 @@ const cartItemClickListener = (element) => {
   saveCartItems(carrinho.innerHTML);
 };
 
-// Requisito 8 mostra items do carrinho depois antes e depois de  carregar
+// Requisito 8 deve add items do carrinho ao clicar, depois de carregar tbm deve ser possivel
 function savecar() {
   const local = getSavedCartItems(); // localStorage.getItem('cartItems')
   carrinho.innerHTML = local;
@@ -128,20 +128,26 @@ function deletCar(param) {
     carrinho.innerHTML = '';
   });
 }
-/* function textLoad() {
-  const carregando = document.querySelector('.items');
+
+// Requisito 11 Mostra texto de carregando durante a requisição da API
+function textLoad() {
   const div = document.createElement('div');
   div.className = 'loading';
   div.innerText = 'carregando...';
+  const carregando = document.querySelector('.items');
   carregando.appendChild(div);
-} */
-
+}
+function textExit() { // Requisito 11
+  document.querySelector('.loading').remove();
+}
 // getSavedCartItems();
 // SavedCartItems();
 
 window.onload = async () => {
+  textLoad();
   await sendProductsPage();
   await addProductCart();
   savecar();
   deletCar();
+  textExit();
 };
