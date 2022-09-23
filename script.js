@@ -71,11 +71,11 @@ const cartItemClickListener = (element) => {
   saveCartItems(carrinho.innerHTML);
 };
 
-// Requisito 8 mostra items do carrinho depois de carregar
+// Requisito 8 mostra items do carrinho depois antes e depois de  carregar
 function savecar() {
   const local = getSavedCartItems(); // localStorage.getItem('cartItems')
   carrinho.innerHTML = local;
-  // console.log(car);
+  // console.log(local);
 }
 
 const createCartItemElement = ({ id, title, price }) => {
@@ -86,7 +86,7 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-// Requisito 2 Todos produtos na tela
+// Requisito 2 Mostra Todos produtos na tela
 async function sendProductsPage() {
   const data = await fetchProducts('computador');
   const items = document.querySelector('.items');
@@ -128,6 +128,13 @@ function deletCar(param) {
     carrinho.innerHTML = '';
   });
 }
+/* function textLoad() {
+  const carregando = document.querySelector('.items');
+  const div = document.createElement('div');
+  div.className = 'loading';
+  div.innerText = 'carregando...';
+  carregando.appendChild(div);
+} */
 
 // getSavedCartItems();
 // SavedCartItems();
